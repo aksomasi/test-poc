@@ -1,0 +1,56 @@
+
+  data = {
+    dbCalculationResult: [10, 20, 40, 10, 17404],
+    dcCalculationResult: [10, 30, 50, 40, 17404],
+    isErlyTalentResult: [true, true, true, true, true],
+    isElgibleDbdcParticipant: true
+  }
+
+  getRetireValue() {
+    let retireIndex;
+    for (let index = 1; index <= 4; index++) {
+      if (this.findRetireValues(this.data.dbCalculationResult, -index) && this.findRetireValues(this.data.dcCalculationResult, -index)) {
+        retireIndex = index;
+        break;
+      }
+    }
+    let retireMessage;
+    switch (retireIndex) {
+      case 1:
+        retireMessage = this.findEarlyTalents(this.data.isErlyTalentResult, -1) ? Retire_Messages.RETIRE_4_WITH_EARLY_RETIREMENT : Retire_Messages.RETIRE_4_WITH_OUT_EARLY_RETIREMENT;
+        break;
+      case 2:
+        retireMessage = this.findEarlyTalents(this.data.isErlyTalentResult, -2) ? Retire_Messages.RETIRE_3_WITH_EARLY_RETIREMENT : Retire_Messages.RETIRE_3_WITH_OUT_EARLY_RETIREMENT;
+        break;
+      case 3:
+        retireMessage = this.findEarlyTalents(this.data.isErlyTalentResult, -3) ? Retire_Messages.RETIRE_2_WITH_EARLY_RETIREMENT : Retire_Messages.RETIRE_2_WITH_OUT_EARLY_RETIREMENT;
+        break;
+      case 4:
+        retireMessage = this.findEarlyTalents(this.data.isErlyTalentResult, -3) ? Retire_Messages.RETIRE_1_WITH_EARLY_RETIREMENT : Retire_Messages.RETIRE_1_WITH_OUT_EARLY_RETIREMENT;
+        break;
+    }
+    return retireMessage;
+  }
+
+  findRetireValues(data: any, indextoRemove: number) {
+    return data.slice(0, indextoRemove).every((element: number) => element !== 0)
+  }
+
+  findEarlyTalents(data: any, indextoRemove: number) {
+    return data.slice(0, indextoRemove).every((element: boolean) => element === true)
+  }
+  
+  
+  --------------------------
+  
+  
+export const Retire_Messages = {
+  RETIRE_4_WITH_EARLY_RETIREMENT: 'RETIRE_4_WITH_EARLY_RETIREMENT',
+  RETIRE_4_WITH_OUT_EARLY_RETIREMENT: 'RETIRE_4_WITH_OUT_EARLY_RETIREMENT',
+  RETIRE_3_WITH_EARLY_RETIREMENT: 'RETIRE_3_WITH_EARLY_RETIREMENT',
+  RETIRE_3_WITH_OUT_EARLY_RETIREMENT: 'RETIRE_3_WITH_OUT_EARLY_RETIREMENT',
+  RETIRE_2_WITH_EARLY_RETIREMENT: 'RETIRE_2_WITH_EARLY_RETIREMENT',
+  RETIRE_2_WITH_OUT_EARLY_RETIREMENT: 'RETIRE_2_WITH_OUT_EARLY_RETIREMENT',
+  RETIRE_1_WITH_EARLY_RETIREMENT: 'RETIRE_1_WITH_OUT_EARLY_RETIREMENT_WITH_EARLY_RETIREMENT',
+  RETIRE_1_WITH_OUT_EARLY_RETIREMENT: 'RETIRE_1_WITH_OUT_EARLY_RETIREMENT',
+}
