@@ -1,0 +1,55 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="text" id="phoneNumber" formControlName="phoneNumber">
+    <div *ngIf="myForm.controls.phoneNumber.invalid && (myForm.controls.phoneNumber.dirty || myForm.controls.phoneNumber.touched)">
+      <div *ngIf="myForm.controls.phoneNumber.errors.required">Phone number is required.</div>
+      <div *ngIf="myForm.controls.phoneNumber.errors.pattern">Phone number must be 10 digits.</div>
+    </div>
+  </div>
+  <div>
+    <label for="truckDriverId">Truck Driver ID:</label>
+    <input type="text" id="truckDriverId" formControlName="truckDriverId">
+    <div *ngIf="myForm.controls.truckDriverId.invalid && (myForm.controls.truckDriverId.dirty || myForm.controls.truckDriverId.touched)">
+      <div *ngIf="myForm.controls.truckDriverId.errors.maxLength">Truck Driver ID must not exceed 30 characters.</div>
+    </div>
+  </div>
+  <div>
+    <label for="truckDriverName">Truck Driver Name:</label>
+    <input type="text" id="truckDriverName" formControlName="truckDriverName">
+    <div *ngIf="myForm.controls.truckDriverName.invalid && (myForm.controls.truckDriverName.dirty || myForm.controls.truckDriverName.touched)">
+      <div *ngIf="myForm.controls.truckDriverName.errors.maxLength">Truck Driver Name must not exceed 30 characters.</div>
+    </div>
+  </div>
+  <div>
+    <label for="vendorName">Vendor Name:</label>
+    <input type="text" id="vendorName" formControlName="vendorName">
+    <div *ngIf="myForm.controls.vendorName.invalid && (myForm.controls.vendorName.dirty || myForm.controls.vendorName.touched)">
+      <div *ngIf="myForm.controls.vendorName.errors.maxLength">Vendor Name must not exceed 30 characters.</div>
+    </div>
+  </div>
+  <div>
+    <label for="poNumber">PO Number:</label>
+    <input type="text" id="poNumber" formControlName="poNumber">
+    <div *ngIf="myForm.controls.poNumber.invalid && (myForm.controls.poNumber.dirty || myForm.controls.poNumber.touched)">
+      <div *ngIf="myForm.controls.poNumber.errors.pattern">PO Number must be numeric and have a maximum of 10 digits.</div>
+    </div>
+  </div>
+  <div>
+    <label for="comments">Comments:</label>
+    <textarea id="comments" formControlName="comments"></textarea>
+    <div *ngIf="myForm.controls.comments.invalid && (myForm.controls.comments.dirty || myForm.controls.comments.touched)">
+      <div *ngIf="myForm.controls.comments.errors.maxLength">Comments must not exceed 50 characters.</div>
+    </div>
+  </div>
+  <button type="submit">Submit</button>
+</form>
+-------------------------
+this.myForm = this.formBuilder.group({
+  phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+  truckDriverId: ['', [Validators.maxLength(30)]],
+  truckDriverName: ['', [Validators.maxLength(30)]],
+  vendorName: ['', [Validators.maxLength(30)]],
+  poNumber: ['', [Validators.pattern('^[0-9]{1,10}$')]],
+  comments: ['', [Validators.maxLength(50)]]
+});
