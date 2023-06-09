@@ -1,0 +1,19 @@
+import { Directive, HostListener, Input } from '@angular/core';
+
+@Directive({
+  selector: '[inputLengthRestriction]',
+})
+export class InputLengthRestrictionDirective {
+  @Input('inputLengthRestriction') maxLength: number;
+
+  @HostListener('input', ['$event.target'])
+  onInput(target: HTMLInputElement) {
+    const currentValue = target.value;
+    if (currentValue.length > this.maxLength) {
+      target.value = currentValue.slice(0, this.maxLength);
+    }
+  }
+}
+
+----------------
+<input type="text" inputLengthRestriction="10">
